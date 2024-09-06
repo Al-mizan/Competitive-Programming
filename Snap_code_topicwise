@@ -1,19 +1,25 @@
 //////////////////////////////////////////////////
 
+//============================================== EXT. STL
 #include <ext/pb_ds/tree_policy.hpp>
 #include <ext/pb_ds/assoc_container.hpp>
 using namespace __gnu_pbds;
 
-/* ordered set*/
-template <class T, class cmp = less_equal<T>>
-using ordered_set = tree<T, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+/* ordered set*/ (multi)
+template <class T, class cmp = less_equal<T>> using ordered_set = tree<T, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
 // s.erase(s.upper_bound(value))
 
 /* ordered map*/
-template <class key, class value, class cmp = less_equal<key>>
-using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+template <class key, class value, class cmp = less_equal<key>> using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
 // find_by_order(k)  returns iterator to kth element starting from 0;
 // order_of_key(k) returns count of elements strictly smaller than k;
+
+template <typename T> using PQ = priority_queue<T>;
+template <typename T> using QP = priority_queue<T,vector<T>,greater<T>>;
+template <typename T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;// ordered_set<ll> st;st.order_of_key(x) // number of elements < x ; *(st.find_by_order(x))  (x)th largest element
+template <typename T> using ordered_multiset = tree<T, null_type,less_equal<T>, rb_tree_tag,tree_order_statistics_node_update>;
+template <typename T,typename R> using ordered_map = tree<T, R , less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T,typename R> using ordered_multimap = tree<T, R , less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 //////////////////////////////////////////////////
 
@@ -73,6 +79,28 @@ bool cmp(const pair<int,int> & p1,const pair<int,int> & p2)
     if(p1.ss>p2.ss) return 1;
     return 0;
 }
+
+//============================================== Bits
+#define Set(x, k) (x |= (1LL << k))
+#define Unset(x, k) (x &= ~(1LL << k))
+#define Check(x, k) (x & (1LL << k))
+#define Toggle(x, k) (x ^= (1LL << k))
+int popcount(ll x){return __builtin_popcountll(x);};
+int poplow(ll x){return __builtin_ctzll(x);};
+int pophigh(ll x){return 63 - __builtin_clzll(x);};
+//>>Convert
+string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
+ll binaryToDecimal(string n){
+    string num = n;ll dec_value = 0;
+    int base = 1;int len = num.length();
+    for(int i = len - 1; i >= 0; i--){
+        if (num[i] == '1')dec_value += base;
+        base = base * 2;
+    }
+    return dec_value;
+}
+//==============================================
+
 //////////////////////////////////////////////////
 
 int mod_mul(int a, int b, int m) {
