@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////
 
-//============================================== EXT. STL
+//================ EXT. STL ================
 #include <ext/pb_ds/tree_policy.hpp>
 #include <ext/pb_ds/assoc_container.hpp>
 using namespace __gnu_pbds;
@@ -236,3 +236,37 @@ vector<int> getprimefac(int n)
 }
 
 ////////////////////////////////////////////////////
+
+======================= Disjoint set =======================
+// directly can say whether the node is connected to the other node.
+class DisjointSet {
+public:
+    vector<int> size, parent;
+    DisjointSet(int n) {
+        parent.resize(n+1, 0);
+        size.resize(n+1);
+        for(int i =0;i<=n;i++) {
+            parent[i] = i;
+            size[i] = 1;
+        }
+    }
+    int findUPar(int node) {
+        if(node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+    void unionBySize(int u, int v) {
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if(ulp_u == ulp_v) return;
+        if(size(ulp_u) < size(ulp_v)) {
+            parent[ulp_u] = ulp_v;
+            size[ulp_v] += size[ulp_u];
+        }
+        else {
+            parent[ulp_v] = ulp_u;
+            size[ulp_u] += size[ulp_v];
+        }
+    }
+};
+
+//////////////////////////////////////////////////////////
