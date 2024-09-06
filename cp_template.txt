@@ -1,0 +1,238 @@
+//////////////////////////////////////////////////
+
+//============================================== EXT. STL
+#include <ext/pb_ds/tree_policy.hpp>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace __gnu_pbds;
+
+/* ordered set*/ (multi)
+template <class T, class cmp = less_equal<T>> using ordered_set = tree<T, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+// s.erase(s.upper_bound(value))
+
+/* ordered map*/
+template <class key, class value, class cmp = less_equal<key>> using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
+// find_by_order(k)  returns iterator to kth element starting from 0;
+// order_of_key(k) returns count of elements strictly smaller than k;
+
+template <typename T> using PQ = priority_queue<T>;
+template <typename T> using QP = priority_queue<T,vector<T>,greater<T>>;
+template <typename T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;// ordered_set<ll> st;st.order_of_key(x) // number of elements < x ; *(st.find_by_order(x))  (x)th largest element
+template <typename T> using ordered_multiset = tree<T, null_type,less_equal<T>, rb_tree_tag,tree_order_statistics_node_update>;
+template <typename T,typename R> using ordered_map = tree<T, R , less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+template <typename T,typename R> using ordered_multimap = tree<T, R , less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+//////////////////////////////////////////////////
+
+memset(vcetor/array, 0/1, sizeof(vector/array));
+* a+b = a^b + 2*a&b;
+* a+b = a|b + a&b;
+* OR/AND/XOR are associative and commutative.
+* A ^ 0 = A 
+* if A^B = C, then A^C = B
+* https://oeis.org/ Sequence Related Problem Analysis
+
+//////////////////////////////////////////////////
+
+manually lower bound and upper bound:
+ 
+int lower_bound(vector<int>& arr, int N, int val)
+{
+    ll mid, low = 0, high = N;
+    while (low < high) {
+        mid = low + (high - low) / 2;
+        if (val <= arr[mid])
+            high = mid;
+        else
+            low = mid + 1;
+    }
+    // if val is greater than arr[n-1]
+    if(low < N && arr[low] < val) low++;
+    return low;
+}
+ 
+int upper_bound(vector<int>& arr, int N, int val)
+{
+    ll mid, low = 0, high = N;
+    while (low < high) {
+        mid = low + (high - low) / 2;
+        if (val >= arr[mid]) 
+            low = mid + 1;
+        else
+            high = mid;
+    }
+    if(low < N && arr[low] <= val) low++; 
+    return low;
+}
+
+//////////////////////////////////////////////////
+
+Lamda function:
+auto function_name = [&](parameters) -> data_type
+{
+    function body;
+};
+
+//////////////////////////////////////////////////
+
+bool cmp(const pair<int,int> & p1,const pair<int,int> & p2)
+{
+    if(p1.ss>p2.ss) return 1;
+    return 0;
+}
+
+//============================================== Bits
+#define Set(x, k) (x |= (1LL << k))
+#define Unset(x, k) (x &= ~(1LL << k))
+#define Check(x, k) (x & (1LL << k))
+#define Toggle(x, k) (x ^= (1LL << k))
+int popcount(ll x){return __builtin_popcountll(x);};
+int poplow(ll x){return __builtin_ctzll(x);};
+int pophigh(ll x){return 63 - __builtin_clzll(x);};
+//>>Convert
+string decToBinary(int n){string s="";int i = 0;while (n > 0) {s =to_string(n % 2)+s;n = n / 2;i++;}return s;}
+ll binaryToDecimal(string n){
+    string num = n;ll dec_value = 0;
+    int base = 1;int len = num.length();
+    for(int i = len - 1; i >= 0; i--){
+        if (num[i] == '1')dec_value += base;
+        base = base * 2;
+    }
+    return dec_value;
+}
+//==============================================
+
+//////////////////////////////////////////////////
+
+int mod_mul(int a, int b, int m) {
+    return (a % m * b % m) % m;
+}
+
+ll mod_pow(ll a, ll b, ll m) {
+    ll res = 1; 
+    while (b > 0) {
+        if (b & 1) res = (res * a) % m;
+        a = (a * a) % m; 
+        b >>= 1;
+    }
+    return res;
+}
+
+// inverse mod, this is fermat's little theorem
+int mod_inv(int n, int m){
+    return mod_pow(n, m-2, m);
+}
+
+int mod_div(int a,int b,int m){
+    return mod_mul(a, mod_inv(b, m), m);
+}
+
+//////////////////////////////////////////////////
+
+long long nCr(int n, int r){
+    if(r>n || r<0) return 0;
+    if(r==n || r==0) return 1;
+    ll sum = 1LL;
+    for(int i = 1; i <= r; i++){
+        sum = (sum * (n - r + i) / i) % mod;
+    }
+    return sum % mod;
+}
+
+other process: and more accurate:
+vetor<int> fact(n);
+/* in the main function
+    fact[0] = 1;
+    for(int i=1; i<=n; i++) fact[i] = mod_mul(fact[i-1],i,m);
+*/
+int ncr(int n, int r) {
+    if(r<0 || r>n) return 0;
+    return mod_inv(fact[n],mod_mul(fact[r],fact[n-r],m),m);
+}
+//////////////////////////////////////////////////
+
+bool isP(int n)
+{
+    if(n==2 || n==3)return true;
+    else if(n<=1 || n%2==0 || n%3==0)return false;
+    for(int i=5;i*i<=n;i+=6)
+    {
+        if(n%i==0 || n%(i+2)==0)return false;
+    }
+    return true;
+}
+
+/*--------------- Seive -----------------------*/
+//////////////////////////////////////////////////
+
+bool pr[N];
+vector<int> prime;
+void sieve(ll n)
+{
+    memset(pr,true ,sizeof(pr));
+    for(ll p=2;p*p<=n;p++)
+    {
+        if(pr[p]==1)
+        {
+            for(int i=p*p;i<=n;i+=p)
+            {
+                pr[i]=false;
+            }
+        }
+    }
+   for(int i=2;i<=n;i++) if(pr[i]==true) prime.push_back(i);
+}
+//////////////////////////////////////////////////
+
+vector<int>spf(100001,-1);
+void fillSpf(){
+    for(int i = 2; i <= 100000; i++){
+        if(spf[i] == -1){
+            for(int j = i*i; j <= 100000; j+= i)  {
+                if (spf[j] == -1)    spf[j] = i;
+            }
+        }
+    }
+}
+
+////////////////////////////////////////////////////
+// Get All The Divisors Of That Number
+vector<int> getdiv(int n)
+{
+    vector<int> ans;
+    for (int i = 1; i * i <= n; i++)
+    {
+        if (n % i == 0)
+        {
+            ans.pb(i);
+            if (n / i != i)
+                ans.pb(n / i);
+        }
+    }
+    return ans;
+}
+
+////////////////////////////////////////////////////
+// to get the prime factors of that number
+vector<int> getprimefac(int n)
+{
+    vector<int> ans;
+    int nn = n;
+    for (int i = 2; i * i <= n; i++)
+    {
+        if (nn % i == 0)
+        {
+            ans.pb(i);
+            while (nn % i == 0)
+            {
+                nn /= i;
+            }
+        }
+    }
+    if (nn > 1)
+    {
+        ans.pb(nn);
+    }
+    return ans;
+}
+
+////////////////////////////////////////////////////
