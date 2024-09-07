@@ -17,6 +17,7 @@
     "#define all(A)          A.begin(), A.end()",
     "#define rall(x)         x.rbegin(), x.rend()",
     "#define setPre(n)       fixed << setprecision(n)",
+    "#define Fill(v,x)       fill(v.begin(),v.end(),x)",
     "#define cases(tc)       cout << \"Case #\" << tc << \": \"",
     "#define debug(args...)  cout << #args << \" = \" << args << endl;",
     "#define getunique(v){sort(v.begin(), v.end());v.erase(unique(v.begin(), v.end()), v.end());}",
