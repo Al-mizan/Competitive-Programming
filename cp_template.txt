@@ -103,6 +103,23 @@ ll binaryToDecimal(string n){
 
 //////////////////////////////////////////////////
 
+long long pow(long long base, long long exp, long long mod) {
+    long long result = 1;
+    base = base % mod;  // Ensure base is in mod
+ 
+    while (exp > 0) {
+        // If exp is odd, multiply base with the result
+        if (exp % 2 == 1)
+            result = (result * base) % mod;
+ 
+        // Now exp must be even, so divide it by 2
+        exp = exp >> 1;
+        base = (base * base) % mod;  // Square the base
+    }
+ 
+    return result;
+}
+
 int mod_mul(int a, int b, int m) {
     return (a % m * b % m) % m;
 }
@@ -233,6 +250,32 @@ vector<int> getprimefac(int n)
         ans.pb(nn);
     }
     return ans;
+}
+
+***************** Graph functions *****************
+
+////////////////////////////////////////////////////
+
+void bfs(vector<vector<int>>& adj, int s) 
+{
+    queue<int> q;  
+    vector<int> level(adj.size(),0);
+    vector<bool> visited(adj.size(), false);
+    visited[s] = true;
+    q.push(s);
+    level[s] = 0;
+    while (!q.empty()) {
+        int curr = q.front();
+        q.pop();
+        cout << curr << " " << level[curr] << endl;
+        for (int x : adj[curr]) {
+            if (!visited[x]) {
+                visited[x] = true;
+                level[x] = level[curr]+1;
+                q.push(x);
+            }
+        }
+    }
 }
 
 ////////////////////////////////////////////////////
