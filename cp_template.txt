@@ -280,6 +280,23 @@ void bfs(vector<vector<int>>& adj, int s)
 
 ////////////////////////////////////////////////////
 
+void DFS(vector<vector<int>> &adj, vector<bool> &visited, int s){
+  	static int time = 0;
+    visited[s] = true;
+    time = time +1;
+	start[s] = time;
+    cout << s << " - " << "sart time: " << time << endl;
+    for (int i : adj[s]) {
+        if (visited[i] == false)
+            DFS(adj, visited, i);
+    }
+  time = time +1;
+  finish[s] = time;
+  cout << s << " - " << "finish time: " << time << endl;
+}
+
+////////////////////////////////////////////////////
+
 ======================= Disjoint set =======================
 // directly can say whether the node is connected to the other node.
 class DisjointSet {
