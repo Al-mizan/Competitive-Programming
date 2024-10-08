@@ -29,6 +29,7 @@ memset(vcetor/array, 0/1, sizeof(vector/array));
 * OR/AND/XOR are associative and commutative.
 * A ^ 0 = A 
 * if A^B = C, then A^C = B
+"#define getunique(v){sort(v.begin(), v.end());v.erase(unique(v.begin(), v.end()), v.end());}",
 * https://oeis.org/ Sequence Related Problem Analysis
 
 //////////////////////////////////////////////////
