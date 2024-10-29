@@ -552,3 +552,15 @@ int coinChange(vector<int>& coins, int amount) {
     // If dp[amount] is still INT_MAX, it means we can't make the amount
     return (dp[amount] == INT_MAX) ? -1 : dp[amount];
 }
+
+//////////////////////////////////////////////////////////
+**************** string hashing functions ****************
+ll get_hash(string &s) {
+    ll val = 0;
+    for(auto &it:s) {
+        val = (val * 31 + (it - 'a' + 1)) % mod; // mod = 1e9 + 7;
+    }
+    return val;
+}
+
+///////////////////////////////////////////////////////////
