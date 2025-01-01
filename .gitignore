@@ -58,5 +58,4 @@ Thumbs.db
 
 problems/.cph/
 problems/codeforces/*
-problems/codechef/*
 !*.cpp
