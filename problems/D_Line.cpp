@@ -22,29 +22,36 @@ template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(
 void solve() {
     ll n;
     cin >> n;
-    vector<ll> v(n);
-    cin >> v;
-    vector<pair<ll,ll>> vp;  
-    map<ll, ll> mp;
+    string s;
+    cin >> s;
+    vector<pair<ll,ll>> vp;
+    ll sum = 0;
 
-    for(int i=n-1; i>=0; i--) {
-        ll x = v[i];
-        if(!mp[x]) {
-            mp[x]++;
-            vp.push_back({x,i+1});
+    for(int i=0;i<n;i++) {
+        if(i < n/2) {
+            if(s[i] == 'L') vp.push_back({i, n-i-1});
+            if(s[n-i-1] == 'R') vp.push_back({i, n-i-1});
+            if(s[i] == 'L') sum += i;
+            else sum += n-i-1;
+        }
+        else {
+            if(s[i] == 'R') sum += n-i-1;
+            else sum += i;
         }
     }
 
-    ll ans = -1;
-    for(int i=vp.size()-1; i>=0; i--) {
-        for(int j=i; j>=0; j--) {
-            if(gcd(vp[i].first, vp[j].first) == 1) {
-                ans = max(ans, vp[i].second + vp[j].second);
-            }
+    ll m = n, i = 0;
+    while(m--) {
+        ll cnt = 0;
+        if(i < vp.size()) {
+            cnt = vp[i].ss - vp[i].ff;
+            i++;
         }
-    }
+        sum += cnt;
 
-    cout << ans << endl;
+        cout << sum << ' ';
+    }
+    newline;
 }
 
 int32_t main()

@@ -54,3 +54,8 @@ Makefile
 *.swo
 .DS_Store
 Thumbs.db
+
+
+problems/.cph/
+problems/*
+!*.cpp
