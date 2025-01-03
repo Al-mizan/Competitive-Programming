@@ -55,7 +55,10 @@ Makefile
 .DS_Store
 Thumbs.db
 
-
+# Ignore executable files
 problems/.cph/
 problems/codeforces/*
+Algo_01/*
+Algo_01_extended/*
+Algo_02/*
 !*.cpp
