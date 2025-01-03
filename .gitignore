@@ -1,93 +1,20 @@
-# Ignore build directories
-/build/
-/bin/
-/obj/
-/out/
+# Ignore all files except specific folders and .cpp files
+*
 
-# Ignore compiled object files
-*.o
-*.obj
-*.lo
-*.la
-*.al
-*.dll
-*.so
-*.dylib
-*.exe
-
-# Ignore dependency files
-*.d
-
-# Ignore compiled static libraries
-*.lib
-*.a
-
-# Ignore compiled dynamic libraries
-*.dll
-*.so
-*.dylib
-
-# Ignore debug files
-*.gch
-*.pch
-*.pdb
-
-# Ignore IDE specific files
-.idea/
-.vscode/
-*.code-workspace
-
-# Ignore generated files
-*.log
-*.tmp
-*.cache
-
-# Ignore CMake files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
-
-# Ignore other backup files
-*~
-*.swp
-*.swo
-.DS_Store
-Thumbs.db
-
-# Ignore executable files
-*.exe
-*.out
-*.o
-*.obj
-*.class
-*.bin
-
-# Exclude object and other build artifacts
-*.dSYM/
-*.log
-*.stackdump
-*.tmp
-
-# Keep .cpp files tracked
+# Allow all .cpp files
 !*.cpp
 
+# Allow the following folders
+!Algo_01/
+!Algo_01_extended/
+!Algo_02/
+!problems/
 
+# Ensure specific files like README.md, LICENSE, and .gitignore are not ignored
+!.gitignore
+!README.md
+!LICENSE
 
-# Ignore executable files
-# Ignore all files by default in the problems directory
-# problems/*
-
-# # Allow only .cpp files in all subdirectories under problems
-# !problems/**/*.cpp
-
-# # Ignore executable files (files with no extensions)
-# problems/**/*
-# !*.cpp
-
-Algo_01/*
-!*.cpp
-Algo_01_extended/*
-!*.cpp
-Algo_02/*
-!*.cpp
+# Ignore all executables (files without extensions)
+**/*
+!**/*.cpp
