@@ -74,11 +74,16 @@ Thumbs.db
 
 
 
-Ignore executable files
-problems/.cph/
-problems/codeforces/*
-!*.cpp
-!**/*.cpp
+# Ignore executable files
+# Ignore all files by default in the problems directory
+# problems/*
+
+# # Allow only .cpp files in all subdirectories under problems
+# !problems/**/*.cpp
+
+# # Ignore executable files (files with no extensions)
+# problems/**/*
+# !*.cpp
 
 Algo_01/*
 !*.cpp
