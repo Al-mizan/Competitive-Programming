@@ -1,20 +1,46 @@
-# Ignore all files except specific folders and .cpp files
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.o
+*.ko
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Executables
 *
+!*.*
+!*/
 
-# Allow all .cpp files
-!*.cpp
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
 
-# Allow the following folders
-!Algo_01/
-!Algo_01_extended/
-!Algo_02/
-!problems/
+# VSCode directory
+.vscode/
 
-# Ensure specific files like README.md, LICENSE, and .gitignore are not ignored
-!.gitignore
-!README.md
-!LICENSE
+# Code::Blocks project files
+*.layout
+*.depend
 
-# Ignore all executables (files without extensions)
-**/*
-!**/*.cpp
+# IDE-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
