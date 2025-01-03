@@ -74,10 +74,11 @@ Thumbs.db
 
 
 
-# Ignore executable files
+Ignore executable files
 problems/.cph/
 problems/codeforces/*
 !*.cpp
+!**/*.cpp
 
 Algo_01/*
 !*.cpp

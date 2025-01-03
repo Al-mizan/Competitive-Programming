@@ -16,7 +16,7 @@ template <class key, class value, class cmp = less_equal<key>> using ordered_map
 
 template <typename T> using PQ = priority_queue<T>;
 template <typename T> using QP = priority_queue<T,vector<T>,greater<T>>;
-template <typename T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;// ordered_set<ll> st;st.order_of_key(x) // number of elements < x ; *(st.find_by_order(x))  (x)th largest element
+template <typename T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;// ordered_set<ll> st;st.order_of_key(x); // number of elements < x // *(st.find_by_order(x))  (x)th largest element
 template <typename T> using ordered_multiset = tree<T, null_type,less_equal<T>, rb_tree_tag,tree_order_statistics_node_update>;
 template <typename T,typename R> using ordered_map = tree<T, R , less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 template <typename T,typename R> using ordered_multimap = tree<T, R , less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
