@@ -56,9 +56,32 @@ Makefile
 Thumbs.db
 
 # Ignore executable files
+*.exe
+*.out
+*.o
+*.obj
+*.class
+*.bin
+
+# Exclude object and other build artifacts
+*.dSYM/
+*.log
+*.stackdump
+*.tmp
+
+# Keep .cpp files tracked
+!*.cpp
+
+
+
+# Ignore executable files
 problems/.cph/
 problems/codeforces/*
-Algo_01/*
-Algo_01_extended/*
-Algo_02/*
 !*.cpp
+
+# Algo_01/*
+# !*.cpp
+# Algo_01_extended/*
+# !*.cpp
+# Algo_02/*
+# !*.cpp
