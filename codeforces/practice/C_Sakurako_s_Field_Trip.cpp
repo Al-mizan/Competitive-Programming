@@ -12,6 +12,7 @@ using ull = unsigned long long;
 #define yes             cout << "YES\n"
 #define all(A)          A.begin(), A.end()
 #define rall(x)         x.rbegin(), x.rend()
+#define mem(a,n)        memset(a, n, sizeof(a))
 #define setPre(n)       fixed << setprecision(n)
 #define cases(tc)       cout << "Case #" << tc << ": "
 #define debug(args...)  cout << #args << " = " << args << endl;
@@ -23,14 +24,24 @@ void solve() {
     cin >> n;
     vector<ll> v(n);
     cin >> v;
-    ll sum = 0;
-    for(int i=1; i<n/2; i++) {
-        if(v[i] != v[n-i-1]) {
-            if(v[i] != v[i-1] && v[i-1] != v[n-i-2]) {
+    // 1 1 1 2 3
+    // 3 1 1 2 1
+    // 2 1 2 3
+    // 2 2 1 2 1 4
+    // 1 4 3 5 1 1 3
 
-            }
+    for(int i=n/2-2;i>=0;i--){
+        if(v[i]==v[i+1] || v[n-i-1]==v[n-i-2]){
+            swap(v[i],v[n-i-1]);
         }
     }
+        
+    ll sum = 0;
+    for(int i=0; i<n-1; i++) {
+        if(v[i] == v[i+1]) sum++;
+    }
+    
+    cout << sum << endl;
 }
 
 int32_t main()
