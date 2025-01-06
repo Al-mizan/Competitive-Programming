@@ -20,28 +20,28 @@ template<typename T>istream &operator>>(istream &istream,vector<T>&v){for(auto &
 template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(auto &it:c)cout<<it<<' ';return ostream;}
 
 void solve() {
-    ll n;
-    cin >> n;
-    vector<ll> v(n), pre(n);
+    ll n , m;
+    cin >> n >> m;
+    string ns, ms;
+    cin >> ns;
+    vector<ll> v(m);
     cin >> v;
+    cin >> ms;
 
-    for(int i=0;i<n;i++) {
-        if(i) pre[i] += v[i] + pre[i-1];
-        else pre[i] = v[i];
-    }
-
+    sort(all(v));
+    sort(all(ms));
     map<ll, ll> mp;
-    mp[0]++;
-    ll sum = 0;
-    for(int i=0;i<n;i++) {
-        if(mp[pre[i]] || v[i] == 0) {
-            sum++;
-            mp.clear();
+
+    for(int i = 0, k = 0; k <m; i++) {
+        if(mp[v[i]]) {
+           m--; 
         }
-        mp[pre[i]]++;
+        else {
+            mp[v[i]]++;
+            ns[v[i]-1] = ms[k++];
+        }
     }
-    
-    cout << sum << endl;
+    cout << ns << endl;
 }
 
 int32_t main()
@@ -52,7 +52,6 @@ int32_t main()
     cin >> t;
     while (t--)
     {
-        // cases(tc);
         solve();
     }
     return 0;

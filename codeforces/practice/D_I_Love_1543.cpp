@@ -20,28 +20,48 @@ template<typename T>istream &operator>>(istream &istream,vector<T>&v){for(auto &
 template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(auto &it:c)cout<<it<<' ';return ostream;}
 
 void solve() {
-    ll n;
-    cin >> n;
-    vector<ll> v(n), pre(n);
-    cin >> v;
-
-    for(int i=0;i<n;i++) {
-        if(i) pre[i] += v[i] + pre[i-1];
-        else pre[i] = v[i];
-    }
-
-    map<ll, ll> mp;
-    mp[0]++;
-    ll sum = 0;
-    for(int i=0;i<n;i++) {
-        if(mp[pre[i]] || v[i] == 0) {
-            sum++;
-            mp.clear();
-        }
-        mp[pre[i]]++;
+    ll n, m;
+    cin >> n >> m;
+    ll v[n][m];
+    string s;
+    for(int i=0; i<n; i++) {
+        cin >> s;
+        for(int j=0; j<m; j++) 
+            v[i][j] = s[j]-'0';
     }
     
-    cout << sum << endl;
+    vector<ll> c = {1,5,4,3};
+    ll ans = 0;
+    for(int i=0; i<min(n,m)/2; i++) {
+        // debug(i);
+        vector<ll> t;
+        for(int j=i; j<m-i-1; j++) t.push_back(v[i][j]);
+        for(int j=i; j<n-i-1; j++) t.push_back(v[j][m-1-i]);
+        for(int j=m-i-1; j>i; j--) t.push_back(v[n-1-i][j]);
+        for(int j=n-i-1; j>i; j--) t.push_back(v[j][i]);
+        
+        ll k = 0;
+        for(int p=0; p<t.size(); p++) {
+            if(t[p] == c[k]) {
+                k++;
+                if(k == 4) ans++, k = 0;
+            }
+            else {
+                k = 0;
+                if(t[p] == c[k]) k++; 
+            }
+        }
+        if(k) {
+            for(int j=0; j<3; j++) {
+                if(t[j] == c[k]) {
+                    k++;
+                    if(k == 4) ans++, k = 0;
+                }
+                else k = 0;
+            }
+        }
+    }
+    cout << ans << endl;
 }
 
 int32_t main()
@@ -52,7 +72,6 @@ int32_t main()
     cin >> t;
     while (t--)
     {
-        // cases(tc);
         solve();
     }
     return 0;

@@ -19,29 +19,23 @@ using ull = unsigned long long;
 template<typename T>istream &operator>>(istream &istream,vector<T>&v){for(auto &it:v)cin>>it;return istream;}
 template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(auto &it:c)cout<<it<<' ';return ostream;}
 
+const int N = 2*1e5 + 5;
+ll arr[N];
+
+void update() {
+
+}
+
+void query() {
+
+}
+
 void solve() {
     ll n;
     cin >> n;
-    vector<ll> v(n), pre(n);
+    vector<ll> v(n);
     cin >> v;
-
-    for(int i=0;i<n;i++) {
-        if(i) pre[i] += v[i] + pre[i-1];
-        else pre[i] = v[i];
-    }
-
-    map<ll, ll> mp;
-    mp[0]++;
-    ll sum = 0;
-    for(int i=0;i<n;i++) {
-        if(mp[pre[i]] || v[i] == 0) {
-            sum++;
-            mp.clear();
-        }
-        mp[pre[i]]++;
-    }
     
-    cout << sum << endl;
 }
 
 int32_t main()
@@ -52,7 +46,6 @@ int32_t main()
     cin >> t;
     while (t--)
     {
-        // cases(tc);
         solve();
     }
     return 0;

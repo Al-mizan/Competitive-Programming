@@ -22,25 +22,26 @@ template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(
 void solve() {
     ll n;
     cin >> n;
-    vector<ll> v(n), pre(n);
+    vector<ll> v(n), pre(n+1), L, R;
     cin >> v;
-
-    for(int i=0;i<n;i++) {
-        if(i) pre[i] += v[i] + pre[i-1];
-        else pre[i] = v[i];
+    string s;
+    cin >> s;
+    for(int i=1; i<=n; i++) {
+        if(!i) pre[i] = v[i-1];
+        else pre[i] += pre[i-1] + v[i-1];
+    }
+    for(int i=0; i<n; i++) {
+        if(s[i] == 'L') L.push_back(i+1);
+        else R.push_back(i+1);
     }
 
-    map<ll, ll> mp;
-    mp[0]++;
-    ll sum = 0;
-    for(int i=0;i<n;i++) {
-        if(mp[pre[i]] || v[i] == 0) {
-            sum++;
-            mp.clear();
-        }
-        mp[pre[i]]++;
+    ll sum = 0, i = 0, j = R.size()-1;
+    while(i < L.size() && j >= 0) {
+        ll l = L[i++], r = R[j--];
+        if(l >= r) break;
+        sum += pre[r] - pre[l-1];
     }
-    
+
     cout << sum << endl;
 }
 
@@ -52,7 +53,6 @@ int32_t main()
     cin >> t;
     while (t--)
     {
-        // cases(tc);
         solve();
     }
     return 0;
