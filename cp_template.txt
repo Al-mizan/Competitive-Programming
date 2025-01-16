@@ -195,16 +195,16 @@ void fillSpf(){
 
 ////////////////////////////////////////////////////
 // Get All The Divisors Of That Number
-vector<int> getdiv(int n)
+vector<ll> getdiv(ll n)
 {
-    vector<int> ans;
-    for (int i = 1; i * i <= n; i++)
+    vector<ll> ans;
+    for (ll i = 2; i * i <= n; i++)
     {
         if (n % i == 0)
         {
-            ans.pb(i);
+            ans.push_back(i);
             if (n / i != i)
-                ans.pb(n / i);
+                ans.push_back(n / i);
         }
     }
     return ans;
