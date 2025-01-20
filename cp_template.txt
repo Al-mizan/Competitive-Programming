@@ -137,15 +137,25 @@ long long nCr(int n, int r){
     return sum % mod;
 }
 
-other process: and more accurate:
-vetor<int> fact(n);
+ll npr(int n, int r) {
+    if (r < 0 || r > n) return 0;
+    ll result = 1;
+    for (int i = 0; i < r; i++) {
+        result = mod_mul(result, n - i); // Multiply (n - i) % mod
+    }
+    return result;
+}
+
+
+other process: it is precomputing and more accurate: 
+vector<ll> fact(n);
 /* in the main function
     fact[0] = 1;
-    for(int i=1; i<=n; i++) fact[i] = mod_mul(fact[i-1],i,m);
+    for(int i=1; i<=N; i++) fact[i] = mod_mul(fact[i-1],i);
 */
-int ncr(int n, int r) {
+ll ncr(int n, int r) {
     if(r<0 || r>n) return 0;
-    return mod_inv(fact[n],mod_mul(fact[r],fact[n-r],m),m);
+    return mod_div(fact[n],mod_mul(fact[r],fact[n-r]));
 }
 //////////////////////////////////////////////////
 
