@@ -19,39 +19,23 @@ template<typename T>istream &operator>>(istream &istream,vector<T>&v){for(auto &
 template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(auto &it:c)cout<<it<<' ';return ostream;}
 
 void solve() {
-    ll n, m;
-    cin >> n >> m;
-    vector<ll> v(n), p(m), pre(n), suff(n), s(n);
-    cin >> v >> p;
+    ll n;
+    cin >> n;
 
-    for(int i=0;i<n;i++) s[i] = n-i-1;
-    auto ss = s;
-    reverse(all(ss));
+    cout << 2 << endl;
+
+    if(n==2) {
+        cout << 1 << ' ' << 2 << endl;
+        return;
+    }
+    cout << n << ' ' << n-2 << endl;
+    cout << n-1 << ' ' << n-1 << endl;
     
-    for(int i=0;i<n;i++) {
-        if(!i) {
-            pre[i] = s[i];
-            suff[i] = ss[i];
-        }
-        else {
-            pre[i] += pre[i-1] + s[i];
-            suff[i] += suff[i-1] + ss[i];
-        }
+    ll s = n-1;
+    for(int i=n-3; i>0;i--) {
+        cout << s << ' ' << i << endl;
+        s = (s+i+1)/2;
     }
-
-    map<ll, ll> mp;
-    for(int i=0;i<n;i++) {
-        if(!i) mp[pre[i]]++;
-        else {
-            if(v[i]-v[i-1] != 1) mp[pre[i-1]-suff[i-1]] += v[i]-v[i-1]-1;
-            mp[pre[i]-suff[i-1]]++;
-        }
-    }
-
-    for(int i=0;i<m;i++) {
-        cout << mp[p[i]] << ' ';
-    }
-    newline;
 }
 
 int32_t main() {

@@ -21,37 +21,22 @@ template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(
 void solve() {
     ll n, m;
     cin >> n >> m;
-    vector<ll> v(n), p(m), pre(n), suff(n), s(n);
-    cin >> v >> p;
-
-    for(int i=0;i<n;i++) s[i] = n-i-1;
-    auto ss = s;
-    reverse(all(ss));
+    vector<string> v(n);
+    for(auto &it:v) cin >> it;
     
-    for(int i=0;i<n;i++) {
-        if(!i) {
-            pre[i] = s[i];
-            suff[i] = ss[i];
-        }
-        else {
-            pre[i] += pre[i-1] + s[i];
-            suff[i] += suff[i-1] + ss[i];
-        }
-    }
-
-    map<ll, ll> mp;
-    for(int i=0;i<n;i++) {
-        if(!i) mp[pre[i]]++;
-        else {
-            if(v[i]-v[i-1] != 1) mp[pre[i-1]-suff[i-1]] += v[i]-v[i-1]-1;
-            mp[pre[i]-suff[i-1]]++;
+    for(int i=0; i<m; i++) {
+        ll ind = n;
+        for(int j=n-1; j>=0; j--) {
+            if(v[j][i] == 'o') ind = j;
+            else if(v[j][i] == '*') {
+                v[j][i] = '.';
+                v[ind-1][i] = '*';
+                ind--;
+            }
         }
     }
 
-    for(int i=0;i<m;i++) {
-        cout << mp[p[i]] << ' ';
-    }
-    newline;
+    for(auto &it:v) cout << it << endl;
 }
 
 int32_t main() {

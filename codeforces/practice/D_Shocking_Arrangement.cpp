@@ -19,37 +19,40 @@ template<typename T>istream &operator>>(istream &istream,vector<T>&v){for(auto &
 template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(auto &it:c)cout<<it<<' ';return ostream;}
 
 void solve() {
-    ll n, m;
-    cin >> n >> m;
-    vector<ll> v(n), p(m), pre(n), suff(n), s(n);
-    cin >> v >> p;
-
-    for(int i=0;i<n;i++) s[i] = n-i-1;
-    auto ss = s;
-    reverse(all(ss));
+    ll n;
+    cin >> n;
+    vector<ll> v(n), pos, neg;
+    cin >> v;
     
-    for(int i=0;i<n;i++) {
-        if(!i) {
-            pre[i] = s[i];
-            suff[i] = ss[i];
-        }
-        else {
-            pre[i] += pre[i-1] + s[i];
-            suff[i] += suff[i-1] + ss[i];
-        }
+    ll x = *max_element(all(v)) - *min_element(all(v));
+    if(x <= *max_element(all(v))) {
+        cout << "No\n";
+        return;
     }
 
-    map<ll, ll> mp;
+    cout << "Yes\n";
     for(int i=0;i<n;i++) {
-        if(!i) mp[pre[i]]++;
-        else {
-            if(v[i]-v[i-1] != 1) mp[pre[i-1]-suff[i-1]] += v[i]-v[i-1]-1;
-            mp[pre[i]-suff[i-1]]++;
-        }
+        if(v[i] < 0) neg.pb(v[i]);
+        else pos.pb(v[i]);
     }
+    sort(rall(pos));
+    sort(all(neg));
 
-    for(int i=0;i<m;i++) {
-        cout << mp[p[i]] << ' ';
+    ll sum = 0, ind = 0;
+    for(int i=0;i<pos.size();i++) {
+        if(sum + pos[i] < x) cout << pos[i] << ' ';
+        else {
+            while(sum + pos[i] >= x) {
+                cout << neg[ind] << ' ';
+                sum += neg[ind++];
+            }
+            if(sum < 0) sum = 0;
+            cout << pos[i] << ' ';
+        }
+        sum += pos[i];
+    }
+    for(int i=ind;i<neg.size();i++) {
+        cout << neg[i] << ' ';
     }
     newline;
 }
