@@ -1,50 +1,61 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
 
-// Update function for 0-based BIT.
-// 'bit' is the Binary Indexed Tree vector,
-// 'n' is the size of the original array,
-// 'i' is the index to update (0-indexed),
-// and 'val' is the value to add.
-void update(vector<int>& bit, int n, int i, int val) {
-    // In 0-based BIT, we update while i is within the array.
-    for (; i < n; i = i | (i + 1))
-        bit[i] += val;
+vector<long long> BIT;
+int n;
+
+void update(int idx, long long val) {
+    if (idx < 0 || idx >= n) return;
+    for (++idx; idx <= n; idx += idx & -idx) {
+        BIT[idx] += val;
+    }
 }
 
-// Query function for 0-based BIT.
-// Returns the prefix sum from index 0 to i (inclusive).
-int query(const vector<int>& bit, int i) {
-    int sum = 0;
-    // Move backward through the tree structure.
-    for (; i >= 0; i = (i & (i + 1)) - 1)
-        sum += bit[i];
+long long query(int idx) {
+    long long sum = 0;
+    for (++idx; idx > 0; idx -= idx & -idx) {
+        sum += BIT[idx];
+    }
     return sum;
 }
 
+long long rangeQuery(int l, int r) {
+    if (l > r || l < 0 || r >= n) return 0;
+    return query(r) - (l > 0 ? query(l - 1) : 0);
+}
+
 int main() {
-    // Let's say the size of our original array is n.
-    int n = 10;
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
     
-    // Initialize the BIT vector with n elements (0-indexed).
-    vector<int> bit(n, 0);
+    cin >> n;
+    BIT.assign(n + 1, 0);
+    vector<int> values(n);
     
-    // Suppose we have an array: [1, 2, 3, ..., 10].
-    // Build the BIT by updating each index with the corresponding value.
-    // Remember that our indices are 0-based.
     for (int i = 0; i < n; i++) {
-        update(bit, n, i, i + 1);  // i+1 gives us the value at position i.
+        cin >> values[i];
+        update(i, values[i]);
     }
     
-    // Query the prefix sum from index 0 to 4 (equivalent to sum of first 5 elements).
-    cout << "Prefix sum from index 0 to 4: " << query(bit, 4) << endl;
-    
-    // To query a range sum from index L to R, use:
-    // rangeSum(L, R) = query(R) - query(L-1) [if L > 0], otherwise query(R) if L is 0.
-    int L = 2, R = 6;  // This will give the sum from the 3rd to the 7th element.
-    int rangeSum = query(bit, R) - (L > 0 ? query(bit, L - 1) : 0);
-    cout << "Range sum from index 2 to 6: " << rangeSum << endl;
-    
+    int q;
+    cin >> q;
+    while (q--) {
+        int type;
+        cin >> type;
+        if (type == 1) {
+            int idx, val;
+            cin >> idx >> val;
+            idx--;
+            int diff = val - values[idx];
+            values[idx] = val;
+            update(idx, diff);
+        } 
+        else if (type == 2) {
+            int l, r;
+            cin >> l >> r;
+            l--; r--;
+            cout << rangeQuery(l, r) << '\n';
+        }
+    }
     return 0;
 }
