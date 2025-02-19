@@ -12,17 +12,17 @@ void build(ll node, ll l, ll r) {
     ll mid = (l + r) >> 1;
     build(2 * node + 1, l, mid);
     build(2 * node + 2, mid + 1, r);
-    seg[node] = seg[2 * node + 1] + seg[2 * node + 2];
+    seg[node] = min(seg[2 * node + 1], seg[2 * node + 2]);
 }
 
 ll query(ll node, ll l, ll r, ll left, ll right) {
-    if (r < left || l > right) return 0;  // No overlap
+    if (r < left || l > right) return 1e9+5;  // No overlap
     if (l >= left && r <= right) return seg[node];  // Total overlap
     
     ll mid = (l + r) >> 1;
     ll leftQuery = query(2 * node + 1, l, mid, left, right);
     ll rightQuery = query(2 * node + 2, mid + 1, r, left, right);
-    return leftQuery + rightQuery;
+    return min(leftQuery, rightQuery);
 }
 
 void update(ll node, ll l, ll r, ll idx, ll val) {
@@ -35,22 +35,22 @@ void update(ll node, ll l, ll r, ll idx, ll val) {
     if (idx <= mid) update(2 * node + 1, l, mid, idx, val);
     else update(2 * node + 2, mid + 1, r, idx, val);
 
-    seg[node] = seg[2 * node + 1] + seg[2 * node + 2];
+    seg[node] = min(seg[2 * node + 1], seg[2 * node + 2]);
 }
 
 void solve() {
     ll n;
     cin >> n;
+    int q;
+    cin >> q;
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
     build(0, 0, n - 1);
-    int q;
-    cin >> q;
     while (q--) {
-        char type;
+        int type;
         cin >> type;
-        if (type == 'U') {
+        if (type == 1) {
             ll idx, val;
             cin >> idx >> val;
             update(0, 0, n - 1, idx-1, val);

@@ -12,7 +12,7 @@ void build(ll node, ll l, ll r) {
     ll mid = (l + r) >> 1;
     build(2 * node + 1, l, mid);
     build(2 * node + 2, mid + 1, r);
-    seg[node] = seg[2 * node + 1] + seg[2 * node + 2];
+    seg[node] = seg[2 * node + 1] ^ seg[2 * node + 2];
 }
 
 ll query(ll node, ll l, ll r, ll left, ll right) {
@@ -22,7 +22,7 @@ ll query(ll node, ll l, ll r, ll left, ll right) {
     ll mid = (l + r) >> 1;
     ll leftQuery = query(2 * node + 1, l, mid, left, right);
     ll rightQuery = query(2 * node + 2, mid + 1, r, left, right);
-    return leftQuery + rightQuery;
+    return leftQuery ^ rightQuery;
 }
 
 void update(ll node, ll l, ll r, ll idx, ll val) {
@@ -35,31 +35,22 @@ void update(ll node, ll l, ll r, ll idx, ll val) {
     if (idx <= mid) update(2 * node + 1, l, mid, idx, val);
     else update(2 * node + 2, mid + 1, r, idx, val);
 
-    seg[node] = seg[2 * node + 1] + seg[2 * node + 2];
+    seg[node] = min(seg[2 * node + 1], seg[2 * node + 2]);
 }
 
 void solve() {
     ll n;
     cin >> n;
+    int q;
+    cin >> q;
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
     build(0, 0, n - 1);
-    int q;
-    cin >> q;
     while (q--) {
-        char type;
-        cin >> type;
-        if (type == 'U') {
-            ll idx, val;
-            cin >> idx >> val;
-            update(0, 0, n - 1, idx-1, val);
-        } 
-        else {
-            ll left, right;
-            cin >> left >> right;
-            cout << query(0, 0, n - 1, left-1, right-1) << endl;
-        }
+        ll left, right;
+        cin >> left >> right;
+        cout << query(0, 0, n - 1, left-1, right-1) << endl;
     }
 }
 int32_t main()

@@ -19,7 +19,7 @@ using ull = unsigned long long;
 template<typename T>istream &operator>>(istream &istream,vector<T>&v){for(auto &it:v)cin>>it;return istream;}
 template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(auto &it:c)cout<<it<<' ';return ostream;}
 
-const int N = 1e5; // limit for array size
+const int N = 2e5; // limit for array size
 int n;             // array size
 int t[2 * N];      // segment tree array
 

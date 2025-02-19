@@ -41,16 +41,16 @@ void update(ll node, ll l, ll r, ll idx, ll val) {
 void solve() {
     ll n;
     cin >> n;
+    int q;
+    cin >> q;
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
     build(0, 0, n - 1);
-    int q;
-    cin >> q;
     while (q--) {
-        char type;
+        int type;
         cin >> type;
-        if (type == 'U') {
+        if (type == 1) {
             ll idx, val;
             cin >> idx >> val;
             update(0, 0, n - 1, idx-1, val);

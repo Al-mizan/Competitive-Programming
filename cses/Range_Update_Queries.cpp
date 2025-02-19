@@ -62,25 +62,25 @@ void update(ll node, ll l, ll r, ll left, ll right, ll val) {
 void solve() {
     ll n;
     cin >> n;
+    int q;
+    cin >> q;
     for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
     build(0, 0, n - 1);
 
-    int q;
-    cin >> q;
     while (q--) {
-        char type;
+        int type;
         cin >> type;
-        if (type == 'U') {
+        if (type == 1) {
             ll left, right, val;
             cin >> left >> right >> val;
             update(0, 0, n-1, left-1, right-1, val);
         } 
         else {
-            ll left, right;
-            cin >> left >> right;
-            cout << query(0, 0, n-1, left-1, right-1) << endl;
+            ll left;
+            cin >> left;
+            cout << query(0, 0, n-1, left-1, left-1) << endl;
         }
     }
 }

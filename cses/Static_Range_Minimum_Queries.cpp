@@ -2,7 +2,7 @@
 using namespace std;
 using ll = long long;
 
-ll arr[100005], seg[4*100005];
+ll arr[200005], seg[4*200005];
 
 void build(ll node, ll l, ll r) {
     if (l == r) {
