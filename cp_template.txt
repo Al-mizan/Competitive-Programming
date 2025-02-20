@@ -7,7 +7,10 @@ using namespace __gnu_pbds;
 
 /* ordered set*/ (multi)
 template <class T, class cmp = less_equal<T>> using ordered_set = tree<T, null_type, cmp, rb_tree_tag, tree_order_statistics_node_update>;
-// s.erase(s.upper_bound(value))
+// st.erase(s.upper_bound(value))  O(log n) erase the exact value from st
+// st.find(value);	O(log n)	Finds an element and returns an iterator.
+// st.find_by_order(k);	O(log n)	Finds the k-th smallest element (0-based).
+// st.order_of_key(value);	O(log n)	Returns number of elements strictly smaller than value.
 
 /* ordered map*/
 template <class key, class value, class cmp = less_equal<key>> using ordered_map = tree<key, value, cmp, rb_tree_tag, tree_order_statistics_node_update>;
