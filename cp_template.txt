@@ -35,6 +35,10 @@ memset(vcetor/array, 0/1, sizeof(vector/array));
 "#define getunique(v){sort(v.begin(), v.end());v.erase(unique(v.begin(), v.end()), v.end());}",
 * https://oeis.org/ Sequence Related Problem Analysis
 
+int dx[] = {1, 0, -1, 0};
+int dy[] = {0, 1, 0, -1};
+char dir[] = {'D', 'R', 'U', 'L'};
+
 //////////////////////////////////////////////////
 
 manually lower bound and upper bound:
