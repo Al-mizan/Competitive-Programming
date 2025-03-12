@@ -3,7 +3,6 @@ using namespace std;
 
 void dfs(vector<int> adj[], int s, int n, vector<int>& vis) {
     vis[s] = 1;
-    cout << s << " ";
     for(auto& it: adj[s]) {
         if(!vis[it]) {
             dfs(adj, it, n, vis);
@@ -14,7 +13,7 @@ void dfs(vector<int> adj[], int s, int n, vector<int>& vis) {
 int main() {
     int n,m;
     cin >> n >> m;
-    vector<int> adj[n];
+    vector<int> adj[n+1];
     for(int i=0;i<m;i++) {
         int x, y;
         cin >> x >> y;

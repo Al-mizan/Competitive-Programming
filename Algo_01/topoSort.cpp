@@ -1,66 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Function to perform topological sort using Kahn's Algorithm
-void topologicalSortKahns(int V, vector<vector<int>>& adj) {
-    vector<int> inDegree(V, 0);
-    
-    // Calculate in-degrees of all vertices
-    for (int u = 0; u < V; u++) {
-        for (int v : adj[u]) {
-            inDegree[v]++;
+void dfs(int node, vector<int> adj[], vector<bool> &vis, stack<int> &st) {
+    vis[node] = true;
+    for (int neighbor : adj[node]) {
+        if (!vis[neighbor]) {
+            dfs(neighbor, adj, vis, st);
+        }
+    }
+    st.push(node);
+}
+
+void topologicalSort(vector<int> adj[], int n) {
+    vector<bool> vis(n + 1, false); 
+    stack<int> st; // Stack to store the topological order
+
+    for (int i = 1; i <= n; i++) {
+        if (!vis[i]) {
+            dfs(i, adj, vis, st);
         }
     }
 
-    // Queue to store vertices with in-degree 0
-    queue<int> q;
-    for (int i = 0; i < V; i++) {
-        if (inDegree[i] == 0) {
-            q.push(i);
-        }
+    while (!st.empty()) {
+        cout << st.top() << " ";
+        st.pop();
     }
-
-    vector<int> topoSort;
-    while (!q.empty()) {
-        int node = q.front();
-        q.pop();
-        topoSort.push_back(node);
-
-        // Reduce in-degree for adjacent vertices and push to queue if in-degree becomes 0
-        for (int v : adj[node]) {
-            inDegree[v]--;
-            if (inDegree[v] == 0) {
-                q.push(v);
-            }
-        }
-    }
-
-    // Check if a valid topological sort exists
-    if (topoSort.size() != V) {
-        cout << "Cycle detected, topological sort not possible" << endl;
-    } else {
-        cout << "Topological Sort (Kahn's Algorithm): ";
-        for (int node : topoSort) {
-            cout << node << " ";
-        }
-        cout << endl;
-    }
+    cout << endl;
 }
 
 int main() {
-    int V, E;
-    cout << "Enter number of vertices and edges: ";
-    cin >> V >> E;
+    int n, m;
+    cin >> n >> m;
+    vector<int> adj[n + 1];
 
-    vector<vector<int>> adj(V);
-    cout << "Enter edges (u v for directed edge u -> v):" << endl;
-    for (int i = 0; i < E; i++) {
+    for (int i = 0; i < m; i++) {
         int u, v;
         cin >> u >> v;
         adj[u].push_back(v);
     }
 
-    topologicalSortKahns(V, adj);
+    topologicalSort(adj, n);
 
     return 0;
 }

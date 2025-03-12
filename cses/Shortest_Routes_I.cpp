@@ -13,7 +13,7 @@ void dijkstra(vector<pair<ll,ll>> adj[], ll s, ll n) {
         ll u = pq.top().second;
         pq.pop();
         if (visited[u]) continue;
-        visited[u] = true;
+        visited[u] = true; 
         for (auto x : adj[u]) {
             ll v = x.first;
             ll weight = x.second;
@@ -24,11 +24,7 @@ void dijkstra(vector<pair<ll,ll>> adj[], ll s, ll n) {
         }
     }
     for (ll i = 1; i <= n; i++) {
-        if (dist[i] == LLONG_MAX) {
-            cout << -1 << ' ';
-        } else {
-            cout << dist[i] << ' ';
-        }
+        cout << dist[i] << ' ';
     }
     cout << '\n';
 }
@@ -41,10 +37,7 @@ int main() {
         ll x, y, w;
         cin >> x >> y >> w;
         adj[x].push_back({y,w});
-        adj[y].push_back({x,w});
     }
-    ll s;
-    cin >> s;
-    dijkstra(adj, s, n);
+    dijkstra(adj, 1, n);
     return 0;
 }

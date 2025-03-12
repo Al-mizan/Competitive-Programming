@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int MAXN = 100005;
+const int MAXN = 20000 + 10;
 vector<int> adj[MAXN], adjT[MAXN];
 vector<bool> visited;
 stack<int> Stack;
