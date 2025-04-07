@@ -5,7 +5,7 @@ using ll = long long;
 ll maxSubarraySum(vector<ll>& arr) {
     ll maxSum = arr[0], currSum = arr[0];
     for (int i = 1; i < arr.size(); i++) {
-        currSum = max(arr[i], currSum + arr[i]);
+        currSum = max(arr[i], currSum + arr[i]); // worked for negative numbers also
         maxSum = max(maxSum, currSum);
     }
     return maxSum;

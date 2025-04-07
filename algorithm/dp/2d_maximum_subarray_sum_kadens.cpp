@@ -12,7 +12,6 @@ void solve() {
             cin >> mat[i][j];
         }
     }
-
     ll maxSum = LLONG_MIN;
 
     for (int top = 0; top < n; top++) {
