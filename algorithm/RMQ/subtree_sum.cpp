@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<int> subtreeSum, values;
+vector<int> subtree_sum, values;
 
 void dfs(int node, int parent, vector<vector<int>>& adj) {
-    subtreeSum[node] = values[node];
+    subtree_sum[node] = values[node];
     for (int v : adj[node]) {
         if (v != parent) {
             dfs(v, node, adj);
-            subtreeSum[node] += subtreeSum[v];
+            subtree_sum[node] += subtree_sum[v];
         }
     }
 }
@@ -18,7 +18,7 @@ int main() {
     cin >> n;
     vector<vector<int>> adj(n);
     values.resize(n);
-    subtreeSum.resize(n);
+    subtree_sum.resize(n);
     for (int i = 0; i < n - 1; i++) {
         int u, v;
         cin >> u >> v;
@@ -37,7 +37,7 @@ int main() {
         int u;
         cin >> u;
         u--;
-        cout << subtreeSum[u] << endl;
+        cout << subtree_sum[u] << endl;
     }
     return 0;
 }

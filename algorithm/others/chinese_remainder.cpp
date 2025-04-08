@@ -10,23 +10,17 @@ int modInverse(int a, int m) {
     return 1;
 }
 
-// Function to find the smallest x such that:
-// x ≡ num[i] (mod rem[i]) for all i
+// Function to find the smallest x such that: x ≡ num[i] (mod rem[i]) for all i
 int chineseRemainder(int num[], int rem[], int k) {
-    // Product of all numbers (n1 * n2 * ... * nk)
     int prod = 1;
     for (int i = 0; i < k; i++)
         prod *= num[i];
 
-    // Initialize result
     int result = 0;
-
-    // Apply the formula: x = sum (rem[i] * pp[i] * inv[i]) % prod
     for (int i = 0; i < k; i++) {
-        int pp = prod / num[i];  // pp[i] is prod / num[i]
-        result += rem[i] * pp * modInverse(pp, num[i]);
+        int pp = prod / num[i];
+        result += rem[i] * pp * modInverse(pp, num[i]);  // x = sum (rem[i] * pp[i] * inv[i]) % prod
     }
-
     return result % prod;
 }
 

@@ -35,7 +35,7 @@ void update(ll node, ll l, ll r, ll idx, ll val) {
     if (idx <= mid) update(2 * node + 1, l, mid, idx, val);
     else update(2 * node + 2, mid + 1, r, idx, val);
 
-    seg[node] = min(seg[2 * node + 1], seg[2 * node + 2]);
+    seg[node] = seg[2 * node + 1] ^ seg[2 * node + 2];
 }
 
 void solve() {

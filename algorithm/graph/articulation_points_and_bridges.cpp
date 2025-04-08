@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 100005; // Maximum number of nodes
+const int N = 200005; // Maximum number of nodes
 vector<int> adj[N];   // Adjacency list
 bool visited[N];      
 int tin[N], low[N];   // Discovery & Lowest reachable time
@@ -62,7 +62,7 @@ void findArticulationPointsAndBridges(int n) {
 }
 
 int main() {
-    int n, m; // Number of nodes and edges
+    int n, m;
     cin >> n >> m;
 
     for (int i = 0; i < m; i++) {
