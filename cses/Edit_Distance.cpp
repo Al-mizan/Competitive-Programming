@@ -5,11 +5,9 @@ int edit_distance(string word1, string word2, int insert_cost, int delete_cost, 
     int m = word1.size(), n = word2.size();
     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
 
-    // Converting word1[0..i-1] to empty string (delete all characters)
     for (int i = 0; i <= m; i++) {
         dp[i][0] = i * delete_cost;
     }
-    // Converting empty string to word2[0..j-1] (insert all characters)
     for (int j = 0; j <= n; j++) {
         dp[0][j] = j * insert_cost;
     }
@@ -32,17 +30,18 @@ int edit_distance(string word1, string word2, int insert_cost, int delete_cost, 
 }
 
 int main() {
+    ios_base ::sync_with_stdio(false);
+    cin.tie(NULL);
     string word1, word2;
     cin >> word1 >> word2;
 
     int insert_cost = 1; // by default value is 1
     int delete_cost = 1;
     int replace_cost = 1;
-    cin >> insert_cost >> delete_cost >> replace_cost;
 
     // convert word1 to word2
     int result = edit_distance(word1, word2, insert_cost, delete_cost, replace_cost);  
-    cout << "Minimum edit distance: " << result << endl;
+    cout << result << endl;
 
     return 0;
 }
