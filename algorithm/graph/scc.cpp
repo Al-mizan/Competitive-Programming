@@ -4,7 +4,7 @@ using namespace std;
 const int MAXN = 20000 + 10;
 vector<int> adj[MAXN], adjT[MAXN];
 vector<bool> visited;
-stack<int> Stack;
+stack<int> st;
 
 void dfs1(int v) {
     visited[v] = true;
@@ -12,7 +12,7 @@ void dfs1(int v) {
         if (!visited[u])
             dfs1(u);
     }
-    Stack.push(v);
+    st.push(v);
 }
 
 void dfs2(int v) {
@@ -24,20 +24,19 @@ void dfs2(int v) {
     }
 }
 
-void findSCCs(int V) {
-    if (V <= 0) return;
-    visited.assign(V, false);
+void findSCCs(int n) {
+    if (n <= 0) return;
+    visited.assign(n, false);
 
-    for (int i = 0; i < V; i++) {
-        if (!visited[i])
-            dfs1(i);
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) dfs1(i);
     }
 
     fill(visited.begin(), visited.end(), false);
 
-    while (!Stack.empty()) {
-        int v = Stack.top();
-        Stack.pop();
+    while (!st.empty()) {
+        int v = st.top();
+        st.pop();
         if (!visited[v]) {
             dfs2(v);
             cout << endl;

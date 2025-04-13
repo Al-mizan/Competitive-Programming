@@ -57,7 +57,8 @@ int binary_search(const string& text, const vector<int>& suffix_arr, const strin
         int mid = left + (right - left) / 2;
         if (text.substr(suffix_arr[mid], n) < pattern) {
             left = mid + 1;
-        } else {
+        }
+        else {
             right = mid;
         }
     }
@@ -70,7 +71,8 @@ int binary_search(const string& text, const vector<int>& suffix_arr, const strin
             int mid = left + (right - left) / 2;
             if (text.substr(suffix_arr[mid], n) <= pattern) {
                 left = mid + 1;
-            } else {
+            }
+            else {
                 right = mid;
             }
         }

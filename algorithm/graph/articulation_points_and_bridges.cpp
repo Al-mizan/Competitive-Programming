@@ -1,47 +1,34 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-const int N = 200005; // Maximum number of nodes
-vector<int> adj[N];   // Adjacency list
+const int N = 200005;
+vector<int> adj[N];
 bool visited[N];      
-int tin[N], low[N];   // Discovery & Lowest reachable time
-bool isArticulation[N]; // Stores articulation points
-vector<pair<int, int>> bridges; // Stores bridges
+int tin[N], low[N];
+bool isArticulation[N];
+vector<pair<int, int>> bridges;
 int timer = 0;
 
-void dfs(int v, int p, int &rootChildren) {
+void dfs(int v, int p) {
     visited[v] = true;
     tin[v] = low[v] = timer++;
     int children = 0;
 
-    for (int to : adj[v]) {
-        if (to == p) continue; // Ignore parent edge
-        
-        if (visited[to]) { // Back edge
-            low[v] = min(low[v], tin[to]);
+    for (int u : adj[v]) {
+        if (u == p) continue;
+        if (visited[u]) { // Back edge
+            low[v] = min(low[v], tin[u]);
         }
-        else { // Forward edge
-            dfs(to, v, rootChildren);
-            low[v] = min(low[v], low[to]);
-
-            // Articulation Point Condition (Non-root)
-            if (p != -1 && low[to] >= tin[v]) {
-                isArticulation[v] = true;
-            }
-
-            // Articulation Bridge Condition
-            if (low[to] > tin[v]) {
-                bridges.push_back({v, to});
-            }
-
+        else {
+            dfs(u, v);
+            low[v] = min(low[v], low[u]);
+            if (p != -1 && low[u] >= tin[v]) isArticulation[v] = true;  // Articulation point
+            if (low[u] > tin[v]) bridges.push_back({v, u});  // Bridge
             children++;
         }
     }
-
-    // Special case for root node
-    if (p == -1 && children > 1) {
+    if (p == -1 && children > 1) {  // for root node
         isArticulation[v] = true;
-        rootChildren = children;
     }
 }
 
@@ -55,8 +42,7 @@ void findArticulationPointsAndBridges(int n) {
 
     for (int i = 0; i < n; i++) {
         if (!visited[i]) {
-            int rootChildren = 0;
-            dfs(i, -1, rootChildren);
+            dfs(i, -1);
         }
     }
 }
