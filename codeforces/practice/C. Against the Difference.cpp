@@ -21,37 +21,19 @@ template<typename T>ostream &operator<<(ostream &ostream,const vector<T>&c){for(
 void solve() {
     ll n;
     cin >> n;
-    vector<pair<ll,ll>> v(n);
-    for(int i = 0; i < n; i++) {
-        cin >> v[i].ff >> v[i].ss;
-    }
-    sort(all(v));
-
-    ll distance = LLONG_MAX, k = 0;
-    set<pair<ll,ll>> st;
-    st.insert({v[0].ss, v[0].ff});
-    for (int i=1; i<n; i++) {
-        ll dist = ceil(sqrt(distance));
-        while(k < i && v[k].ff + dist < v[i].ff) {
-            st.erase({v[k].ss,v[k].ff});
-            k++;
-        }
-        auto lo = st.lower_bound({v[i].ss - dist, 0});
-        auto hi = st.upper_bound({v[i].ss + dist, 0});
-        
-        for (auto it = lo; it != hi; it++) {
-            distance = min(distance, (it->ss - v[i].ff)*(it->ss - v[i].ff) + (it->ff - v[i].ss)*(it->ff - v[i].ss));
-        }
-        st.insert({v[i].ss, v[i].ff});
-    }
-
-    cout << distance << endl;
+    vector<ll> v(n);
+    cin >> v;
+    
 }
 
 int32_t main() {
     ios_base ::sync_with_stdio(false);
     cin.tie(NULL);
-    int t = 1;
+    int t = 1; cin >> t;
     while (t--) solve();
     return 0;
 }
+
+
+// 2 3 3 1 2 3 1 1
+// 
